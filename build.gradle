@@ -19,6 +19,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.flywaydb:flyway-mysql'
 	runtimeOnly 'com.h2database:h2:2.2.220'
 	runtimeOnly 'com.mysql:mysql-connector-j:8.1.0'
 }
