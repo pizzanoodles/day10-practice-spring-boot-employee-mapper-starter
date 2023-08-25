@@ -142,9 +142,14 @@ class EmployeeApiTest {
 
     @Test
     void should_delete_employee_by_id() throws Exception {
-        Employee employee = employeeRepository.save(getEmployeeBob());
+        EmployeeRequest employeeRequest = new EmployeeRequest("Jens", 23, "Male", 50000, null);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String employeeRequestJSON = objectMapper.writeValueAsString(employeeRequest);
+        mockMvc.perform(post("/employees")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(employeeRequestJSON));
 
-        mockMvc.perform(delete("/employees/{id}", employee.getId()))
+        mockMvc.perform(delete("/employees/{id}", 1L))
                 .andExpect(MockMvcResultMatchers.status().is(204));
 
         assertTrue(employeeRepository.findById(1L).isEmpty());
