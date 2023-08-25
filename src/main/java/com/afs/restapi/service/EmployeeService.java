@@ -31,14 +31,14 @@ public class EmployeeService {
 
     }
 
-    public void update(Long id, Employee employee) {
+    public void update(Long id, EmployeeRequest employeeRequest) {
         Employee toBeUpdatedEmployee = employeeRepository.findById(id)
                 .orElseThrow(EmployeeNotFoundException::new);
-        if (employee.getSalary() != null) {
-            toBeUpdatedEmployee.setSalary(employee.getSalary());
+        if (employeeRequest.getSalary() != null) {
+            toBeUpdatedEmployee.setSalary(employeeRequest.getSalary());
         }
-        if (employee.getAge() != null) {
-            toBeUpdatedEmployee.setAge(employee.getAge());
+        if (employeeRequest.getAge() != null) {
+            toBeUpdatedEmployee.setAge(employeeRequest.getAge());
         }
         employeeRepository.save(toBeUpdatedEmployee);
     }
