@@ -64,7 +64,7 @@ class EmployeeApiTest {
 
     @Test
     void should_create_employee() throws Exception {
-        EmployeeRequest employeeRequest = new EmployeeRequest("Alice", 20, "Female", 50000, null);
+        EmployeeRequest employeeRequest = new EmployeeRequest("Alice", 20, null, "Female", 50000);
         ObjectMapper objectMapper = new ObjectMapper();
         String employeeRequestJSON = objectMapper.writeValueAsString(employeeRequest);
         mockMvc.perform(post("/employees")
@@ -80,14 +80,14 @@ class EmployeeApiTest {
 
     @Test
     void should_update_employee_age_and_salary() throws Exception {
-        EmployeeRequest employeeRequest = new EmployeeRequest("Jens", 23, "Male", 20000, null);
+        EmployeeRequest employeeRequest = new EmployeeRequest("Alice", 20, null, "Female", 50000);
         ObjectMapper postObjectMapper = new ObjectMapper();
         String employeeRequestJSON = postObjectMapper.writeValueAsString(employeeRequest);
         mockMvc.perform(post("/employees")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(employeeRequestJSON));
 
-        EmployeeRequest employeeUpdateRequest = new EmployeeRequest("Json", 24, "Male", 2000, null);
+        EmployeeRequest employeeUpdateRequest = new EmployeeRequest("Alice", 23, null, "Female", 0);
         ObjectMapper objectMapper = new ObjectMapper();
         String updatedEmployeeJson = objectMapper.writeValueAsString(employeeUpdateRequest);
         mockMvc.perform(put("/employees/{id}", 1L)
@@ -107,7 +107,7 @@ class EmployeeApiTest {
 
     @Test
     void should_find_employee_by_id() throws Exception {
-        EmployeeRequest employeeRequest = new EmployeeRequest("Jens", 23, "Male", 50000, null);
+        EmployeeRequest employeeRequest = new EmployeeRequest("Alice", 20, null, "Female", 50000);
         ObjectMapper objectMapper = new ObjectMapper();
         String employeeRequestJSON = objectMapper.writeValueAsString(employeeRequest);
         mockMvc.perform(post("/employees")
@@ -148,7 +148,7 @@ class EmployeeApiTest {
 
     @Test
     void should_delete_employee_by_id() throws Exception {
-        EmployeeRequest employeeRequest = new EmployeeRequest("Jens", 23, "Male", 50000, null);
+        EmployeeRequest employeeRequest = new EmployeeRequest("Alice", 20, null, "Female", 50000);
         ObjectMapper objectMapper = new ObjectMapper();
         String employeeRequestJSON = objectMapper.writeValueAsString(employeeRequest);
         mockMvc.perform(post("/employees")

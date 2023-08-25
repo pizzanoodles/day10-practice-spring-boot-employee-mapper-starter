@@ -7,7 +7,7 @@ public class EmployeeRequest {
     private Integer salary;
     private Long companyId;
 
-    public EmployeeRequest(String name, Integer age, String gender, Integer salary, Long companyId) {
+    public EmployeeRequest(String name, Integer age, Long companyId, String gender, Integer salary) {
         this.name = name;
         this.age = age;
         this.gender = gender;
