@@ -4,6 +4,7 @@ import com.afs.restapi.entity.Company;
 import com.afs.restapi.entity.Employee;
 import com.afs.restapi.repository.CompanyRepository;
 import com.afs.restapi.repository.EmployeeRepository;
+import com.afs.restapi.service.dto.CompanyRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,16 +95,15 @@ class CompanyApiTest {
 
     @Test
     void should_create_company() throws Exception {
-        Company company = getCompanyOOCL();
-
+        CompanyRequest companyRequest= new CompanyRequest("Orient Overseas Container Line");
         ObjectMapper objectMapper = new ObjectMapper();
-        String companyRequest = objectMapper.writeValueAsString(company);
+        String companyRequestJSON = objectMapper.writeValueAsString(companyRequest);
         mockMvc.perform(post("/companies")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(companyRequest))
+                        .content(companyRequestJSON))
                 .andExpect(MockMvcResultMatchers.status().is(201))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(notNullValue()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(company.getName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(companyRequest.getName()));
     }
 
     @Test
