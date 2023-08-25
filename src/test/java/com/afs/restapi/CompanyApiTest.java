@@ -95,9 +95,9 @@ class CompanyApiTest {
 
     @Test
     void should_create_company() throws Exception {
-        CompanyRequest companyRequest= new CompanyRequest("Orient Overseas Container Line");
+        CompanyRequest companyRequest = new CompanyRequest("Orient Overseas Container Line");
         ObjectMapper objectMapper = new ObjectMapper();
-        String companyRequestJSON = objectMapper.writeValueAsString(companyRequest);
+        String companyRequestJSON = objectMapper.writeValueAsString(companyRequest.getName());
         mockMvc.perform(post("/companies")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(companyRequestJSON))
