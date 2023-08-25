@@ -80,23 +80,29 @@ class EmployeeApiTest {
 
     @Test
     void should_update_employee_age_and_salary() throws Exception {
-        Employee previousEmployee = employeeRepository.save(new Employee(null, "Json", 22, "Male", 1000));
+        EmployeeRequest employeeRequest = new EmployeeRequest("Jens", 23, "Male", 20000, null);
+        ObjectMapper postObjectMapper = new ObjectMapper();
+        String employeeRequestJSON = postObjectMapper.writeValueAsString(employeeRequest);
+        mockMvc.perform(post("/employees")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(employeeRequestJSON));
+
         EmployeeRequest employeeUpdateRequest = new EmployeeRequest("Json", 24, "Male", 2000, null);
         ObjectMapper objectMapper = new ObjectMapper();
         String updatedEmployeeJson = objectMapper.writeValueAsString(employeeUpdateRequest);
-        mockMvc.perform(put("/employees/{id}", previousEmployee.getId())
+        mockMvc.perform(put("/employees/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updatedEmployeeJson))
                 .andExpect(MockMvcResultMatchers.status().is(204));
 
-        Optional<Employee> optionalEmployee = employeeRepository.findById(previousEmployee.getId());
+        Optional<Employee> optionalEmployee = employeeRepository.findById(1L);
         assertTrue(optionalEmployee.isPresent());
         Employee updatedEmployee = optionalEmployee.get();
         Assertions.assertEquals(employeeUpdateRequest.getAge(), updatedEmployee.getAge());
         Assertions.assertEquals(employeeUpdateRequest.getSalary(), updatedEmployee.getSalary());
-        Assertions.assertEquals(previousEmployee.getId(), updatedEmployee.getId());
-        Assertions.assertEquals(previousEmployee.getName(), updatedEmployee.getName());
-        Assertions.assertEquals(previousEmployee.getGender(), updatedEmployee.getGender());
+        Assertions.assertEquals(1L, updatedEmployee.getId());
+        Assertions.assertEquals(employeeRequest.getName(), updatedEmployee.getName());
+        Assertions.assertEquals(employeeRequest.getGender(), updatedEmployee.getGender());
     }
 
     @Test
