@@ -120,7 +120,7 @@ class EmployeeApiTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(employeeRequest.getName()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(employeeRequest.getAge()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(employeeRequest.getGender()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(employeeRequest.getSalary()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.salary").doesNotExist());
     }
 
     @Test
