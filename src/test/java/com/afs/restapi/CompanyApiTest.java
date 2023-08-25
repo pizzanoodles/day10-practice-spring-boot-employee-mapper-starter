@@ -103,7 +103,8 @@ class CompanyApiTest {
                         .content(companyRequestJSON))
                 .andExpect(MockMvcResultMatchers.status().is(201))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(notNullValue()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(companyRequest.getName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(companyRequest.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.employeesCount").exists());
     }
 
     @Test
