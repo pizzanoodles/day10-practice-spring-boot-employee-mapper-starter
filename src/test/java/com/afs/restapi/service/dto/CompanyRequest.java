@@ -11,7 +11,7 @@ public class CompanyRequest {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
 }
