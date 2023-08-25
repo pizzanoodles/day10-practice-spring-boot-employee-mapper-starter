@@ -47,6 +47,7 @@ public class CompanyService {
 
     public CompanyResponse create(CompanyRequest companyRequest) {
         Company company = CompanyMapper.toEntity(companyRequest);
+        company.setEmployees(findEmployeesByCompanyId(company.getId()));
         return CompanyMapper.toResponse(companyRepository.save(company));
     }
 
